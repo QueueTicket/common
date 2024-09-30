@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class CurrentUser {
+
     private Long currentUserId;
     private String currentUserRole;
 }
