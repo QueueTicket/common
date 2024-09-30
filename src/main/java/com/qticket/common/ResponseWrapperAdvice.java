@@ -42,7 +42,7 @@ public class ResponseWrapperAdvice implements ResponseBodyAdvice<Object> {
 
         // 에러 응답 처리
         if (statusCode >= 400) {
-            return ResponseDto.error(body.toString());
+            return body;
         }
 
         return ResponseDto.success(HttpStatus.valueOf(statusCode).name(), body);
