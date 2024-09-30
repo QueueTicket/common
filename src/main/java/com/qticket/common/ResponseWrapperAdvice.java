@@ -39,9 +39,6 @@ public class ResponseWrapperAdvice implements ResponseBodyAdvice<Object> {
         // HttpServletResponse를 통해 상태 코드 확인
         int statusCode = httpServletResponse.getStatus();
 
-        // 이미 ResponseDto로 래핑된 응답은 다시 래핑하지 않도록 예외 처리
-
-        System.out.println("body = " + body);
 
         // 에러 응답 처리
         if (statusCode >= 400) {
