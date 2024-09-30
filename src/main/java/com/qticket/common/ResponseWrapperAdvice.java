@@ -6,6 +6,7 @@ import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -22,8 +23,9 @@ public class ResponseWrapperAdvice implements ResponseBodyAdvice<Object> {
 
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
-        return true;
-    }
+        return MappingJackson2HttpMessageConverter.class.isAssignableFrom(converterType);
+    };
+
 
     @Override
     public Object beforeBodyWrite(
@@ -38,16 +40,15 @@ public class ResponseWrapperAdvice implements ResponseBodyAdvice<Object> {
         int statusCode = httpServletResponse.getStatus();
 
         // 이미 ResponseDto로 래핑된 응답은 다시 래핑하지 않도록 예외 처리
-        if (body instanceof ResponseDto) {
-            return body;
-        }
+
+        System.out.println("body = " + body);
 
         // 에러 응답 처리
         if (statusCode >= 400) {
             return ResponseDto.error(body.toString());
         }
 
-        // 성공적인 응답의 경우 ResponseDto로 래핑
-        return ResponseDto.success(HttpStatus.OK.name(), body);
+        return ResponseDto.success(HttpStatus.valueOf(statusCode).name(), body);
+
     }
 }
