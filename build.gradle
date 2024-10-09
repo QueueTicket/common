@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'com.qticket'
-version = '0.0.13'
+version = '0.0.14'
 
 java {
 	toolchain {
@@ -48,8 +48,8 @@ publishing {
 			name = "GitHubPackages"
 			url = uri("https://maven.pkg.github.com/QueueTicket/common")
 			credentials {
-				username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
-				password = project.findProperty("gpr.token") ?: System.getenv("TOKEN")
+				username = "QueueTicket"
+				password = System.getenv("TOKEN")
 			}
 		}
 	}
