@@ -30,7 +30,7 @@ public class AuditorAwareImpl implements AuditorAware<String> {
         }
 
         // 기본 사용자 설정
-        return Optional.of("userId");
+        return Optional.of(userId);
     }
 
     public static void setAsyncUserId(String userId) {
