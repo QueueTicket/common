@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'com.qticket'
-version = '0.0.14'
+version = '0.0.13'
 
 java {
 	toolchain {
@@ -37,6 +37,7 @@ dependencies {
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.10.3'
 }
 
+
 publishing {
 	publications {
 		mavenJava(MavenPublication) {
@@ -49,7 +50,7 @@ publishing {
 			url = uri("https://maven.pkg.github.com/QueueTicket/common")
 			credentials {
 				username = "QueueTicket"
-				password = System.getenv("TOKEN")
+				password = System.getenv("GITHUB_TOKEN")
 			}
 		}
 	}
