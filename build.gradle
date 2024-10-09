@@ -37,7 +37,6 @@ dependencies {
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.10.3'
 }
 
-
 publishing {
 	publications {
 		mavenJava(MavenPublication) {
@@ -49,8 +48,8 @@ publishing {
 			name = "GitHubPackages"
 			url = uri("https://maven.pkg.github.com/QueueTicket/common")
 			credentials {
-				username = "QueueTicket"
-				password = System.getenv("GITHUB_TOKEN")
+				username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+				password = project.findProperty("gpr.token") ?: System.getenv("TOKEN")
 			}
 		}
 	}
