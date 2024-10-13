@@ -14,12 +14,15 @@ public class LoginArgumentResolver implements HandlerMethodArgumentResolver {
         return parameter.hasParameterAnnotation(Login.class)  && parameter.getParameterType().equals(CurrentUser.class);
     }
 
+
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-        Long currentUserId = Long.parseLong(webRequest.getHeader("X-USER-ID"));
-        String currentUserRole = webRequest.getHeader("X-USER-ROLE");
+        String userIdHeader = webRequest.getHeader("X-USER-ID");
+        String userRoleHeader = webRequest.getHeader("X-USER-ROLE");
 
-        CurrentUser currentUser = new CurrentUser(currentUserId, currentUserRole);
-        return currentUser;
+        Long currentUserId = (userIdHeader != null) ? Long.parseLong(userIdHeader) : null;
+        String currentUserRole = (userRoleHeader != null) ? userRoleHeader : null;
+
+        return new CurrentUser(currentUserId, currentUserRole);
     }
 }
