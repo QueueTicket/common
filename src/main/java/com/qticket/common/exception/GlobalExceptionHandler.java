@@ -31,4 +31,14 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.BAD_REQUEST)
                 .body(ResponseDto.error(message));
     }
+
+    @ExceptionHandler(ClientException.class)
+    public ResponseEntity<ResponseDto<String>> handleClientException(ClientException e) {
+        String message = e.getMessage();
+        HttpStatus status = e.getStatus();
+
+        return ResponseEntity
+                .status(status)
+                .body(ResponseDto.error(message));
+    }
 }
